@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feliz Día de San Valentín 💘</title>
+  <meta name="description" content="Una página bonita para desear un feliz día de San Valentín." />
+  <style>
+    :root{
+      --bg1:#ff5ea8;
+      --bg2:#ffb3c7;
+      --bg3:#ffd6e8;
+      --card: rgba(255,255,255,.78);
+      --stroke: rgba(255,255,255,.35);
+      --text:#2b1430;
+      --muted: rgba(43,20,48,.72);
+      --accent:#ff2d7a;
+      --accent2:#7a2cff;
+      --shadow: 0 30px 80px rgba(0,0,0,.18);
+      --shadow2: 0 14px 30px rgba(0,0,0,.12);
+      --radius: 28px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      overflow-x:hidden;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.35), transparent 55%),
+        radial-gradient(900px 700px at 85% 30%, rgba(255,255,255,.30), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+    }
+
+    /* Fondo con corazones flotando */
+    .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.10));
+    }
+    .heart{
+      position:absolute;
+      width:18px;height:18px;
+      transform: translateY(110vh) rotate(20deg);
+      opacity:.0;
+      animation: floatUp linear forwards;
+    }
+    .heart::before, .heart::after{
+      content:"";
+      position:absolute;
+      width:10px;height:16px;
+      background: rgba(255,255,255,.75);
+      border-radius: 10px 10px 0 0;
+      left:9px; top:2px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+    .heart::after{
+      left:1px;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(110vh) translateX(0) rotate(20deg) scale(.9); opacity:0; }
+      8%{ opacity:.65; }
+      55%{ opacity:.55; }
+      100%{ transform: translateY(-20vh) translateX(var(--drift)) rotate(var(--spin)) scale(1.35); opacity:0; }
+    }
+
+    /* Layout */
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding: 42px 18px;
+      position:relative;
+      z-index:1;
+    }
+    .card{
+      width:min(900px, 92vw);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* Brillo animado */
+    .shine{
+      position:absolute;
+      inset:-60%;
+      background: conic-gradient(from 200deg,
+        transparent 0deg,
+        rgba(255,255,255,.18) 40deg,
+        transparent 85deg,
+        rgba(255,255,255,.12) 140deg,
+        transparent 180deg,
+        rgba(255,255,255,.20) 240deg,
+        transparent 300deg,
+        rgba(255,255,255,.10) 360deg);
+      animation: shine 10s linear infinite;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+    @keyframes shine{ to{ transform: rotate(360deg); } }
+
+    .content{
+      padding: 34px 26px 28px;
+      display:grid;
+      gap: 26px;
+      grid-template-columns: 1.1fr .9fr;
+      align-items:center;
+    }
+    @media (max-width: 760px){
+      .content{ grid-template-columns: 1fr; padding: 28px 20px 22px; }
+    }
+
+    /* Tipografía */
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.45);
+      box-shadow: var(--shadow2);
+      width:max-content;
+      font-weight:600;
+      color: rgba(43,20,48,.85);
+    }
+    .badge .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+      box-shadow: 0 0 0 6px rgba(255,45,122,.15);
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(34px, 4vw, 52px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .subtitle{
+      margin:0;
+      font-size: clamp(15px, 1.7vw, 18px);
+      color: var(--muted);
+      line-height:1.55;
+      max-width: 52ch;
+    }
+
+    /* Contenedor de foto */
+    .photo-wrap{
+      display:grid;
+      place-items:center;
+      padding: 12px;
+    }
+
+    .photo-frame{
+      width: min(320px, 70vw);
+      aspect-ratio: 1/1;
+      border-radius: 26px;
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 22px 60px rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.5);
+      transform: rotate(-2deg);
+      transition: transform .25s ease;
+      background: rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+    }
+
+    .photo-frame:hover{
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .photo-frame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.05);
+      transform: scale(1.05);
+    }
+
+    /* Brillo encima de la foto */
+    .photo-frame::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 25% 15%, rgba(255,255,255,.85), rgba(255,255,255,0) 45%),
+        linear-gradient(120deg, rgba(255,255,255,.25), rgba(255,255,255,0) 40%);
+      opacity:.9;
+      mix-blend-mode: screen;
+      pointer-events:none;
+    }
+
+    /* Mini corazones decorativos alrededor */
+    .sticker{
+      position:absolute;
+      width:62px;
+      height:62px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.45);
+      box-shadow: var(--shadow2);
+      display:grid;
+      place-items:center;
+      font-size: 28px;
+      backdrop-filter: blur(10px);
+      animation: floatSticker 3.2s ease-in-out infinite;
+    }
+
+    .sticker.one{ top:-18px; left:-18px; transform: rotate(-12deg); }
+    .sticker.two{ bottom:-18px; right:-18px; transform: rotate(10deg); animation-delay: .6s; }
+
+    @keyframes floatSticker{
+      0%,100%{ translate: 0 0; }
+      50%{ translate: 0 -6px; }
+    }
+
+    /* Mensaje */
+    .message{
+      margin: 18px 0 0;
+      padding: 16px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.48);
+      box-shadow: var(--shadow2);
+      line-height: 1.6;
+      color: rgba(43,20,48,.84);
+    }
+    .message strong{
+      color: rgba(43,20,48,.95);
+    }
+
+    /* Pie */
+    footer{
+      padding: 16px 22px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      border-top: 1px solid rgba(255,255,255,.38);
+      color: rgba(43,20,48,.62);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px){
+      footer{ flex-direction:column; text-align:center; }
+    }
+
+    /* Accesibilidad */
+    @media (prefers-reduced-motion: reduce){
+      .heart, .shine, .sticker{ animation:none !important; }
+      .photo-frame{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Tarjeta de San Valentín">
+      <div class="shine" aria-hidden="true"></div>
+
+      <div class="content">
+        <div>
+          <div class="badge">
+            <span class="dot" aria-hidden="true"></span>
+            <span>14 de febrero del 2026 • San Valentín</span>
+          </div>
+
+          <h1>Feliz Día de San Valentín Aricita 💘</h1>
+          <p class="subtitle">
+            Hoy quiero recordarte que
+            <strong>te amo</strong>, te admiro y me alegra que estés en mi vida.
+          </p>
+
+          <div class="message">
+            Gracias por siempre estar conmigo en todo momento y hacerme muy feliz.
+            <br>Espero nuestro amor dure mucho tiempo y que seas feliz a mi lado siempre, 
+            te quiero con todo mi corazón y gracias por ser mis serendipia linda.          
+          </div>
+        </div>
+
+        <div class="photo-wrap">
+          <div class="photo-frame">
+            <img src="nosotros.jpeg" alt="Foto romántica" />
+
+            <div class="sticker one">💞</div>
+            <div class="sticker two">🌹</div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <span>Hecho con cariño, Cristian • 💗</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // Fondo de corazones flotando
+    const hearts = document.getElementById('hearts');
+    const HEARTS = 26;
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    for (let i = 0; i < HEARTS; i++){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const left = rand(0, 100);
+      const delay = rand(0, 6);
+      const dur = rand(8, 16);
+      const drift = rand(-40, 40) + 'vw';
+      const spin = rand(-40, 40) + 'deg';
+      const scale = rand(0.75, 1.25);
+
+      h.style.left = left + 'vw';
+      h.style.animationDelay = delay + 's';
+      h.style.animationDuration = dur + 's';
+      h.style.setProperty('--drift', drift);
+      h.style.setProperty('--spin', spin);
+      h.style.transform = `translateY(110vh) rotate(20deg) scale(${scale})`;
+
+      hearts.appendChild(h);
+    }
+  </script>
+</body>
+</html>
+
